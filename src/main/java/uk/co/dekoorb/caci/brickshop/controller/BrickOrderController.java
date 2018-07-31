@@ -36,8 +36,8 @@ public class BrickOrderController {
 
     // Mappings for Stage 2 story 1
     @RequestMapping(value = "/order/{orderId}", method = RequestMethod.PUT)
-    public BrickOrder updateExistingOrder(
+    public Long updateExistingOrder(
             @RequestBody BrickOrder brickOrder,@PathVariable Long orderId) {
-        return orderService.updateOrder(orderId, brickOrder);
+        return orderService.updateOrder(orderId, brickOrder).getId();
     }
 }
