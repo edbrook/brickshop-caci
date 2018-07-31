@@ -63,7 +63,6 @@ public class BrickOrderServiceTest {
         assertEquals(numberOfBricks, order.getNumBricks());
     }
 
-
     /*
      * Stage 1 - Story 2 tests
      */
@@ -103,6 +102,38 @@ public class BrickOrderServiceTest {
         }
     }
 
+    /*
+     * Stage 2 - Story 1 tests
+     */
+    @Test
+    public void canUpdateExistingOrder() {
+        int initialBrickCount = 100;
+        int newBrickCount = 200;
+        BrickOrder order = createBrickOrder(initialBrickCount);
+        order.setNumBricks(newBrickCount);
+        BrickOrder updatedOrder = service.updateOrder(order.getId(), order);
+        assertNotNull(updatedOrder);
+        assertNotEquals(order.getId(), updatedOrder.getId());
+        assertEquals(newBrickCount, updatedOrder.getNumBricks());
+    }
+
+    @Test(expected = InvalidBrickOrderIdException.class)
+    public void cannotUpdateUsingInvalidOrderId() {
+        BrickOrder order = new BrickOrder(100);
+        service.updateOrder(0L, order);
+    }
+
+    @Test(expected = InvalidBrickOrderException.class)
+    public void cannotUpdateWithInvalidOrder() {
+        int initialBrickCount = 100;
+        BrickOrder order = createBrickOrder(initialBrickCount);
+        order.setNumBricks(0);
+        service.updateOrder(order.getId(), order);
+    }
+
+    /*
+     * Helper methods
+     */
     private BrickOrder createBrickOrder(int numberOfBricks) {
         return service.createOrder(new BrickOrder(numberOfBricks));
     }

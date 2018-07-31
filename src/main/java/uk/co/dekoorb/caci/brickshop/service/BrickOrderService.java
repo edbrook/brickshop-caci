@@ -38,4 +38,8 @@ public class BrickOrderService {
     public List<BrickOrder> getOrders() {
         return repository.findAll();
     }
+
+    public BrickOrder updateOrder(Long id, BrickOrder order) {
+        return null;
+    }
 }
