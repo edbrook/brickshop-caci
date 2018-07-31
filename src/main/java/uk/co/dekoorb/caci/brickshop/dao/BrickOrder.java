@@ -12,6 +12,8 @@ public class BrickOrder {
     private Long id;
     private int numberOfBricks;
 
+    public BrickOrder() {}
+
     public BrickOrder(int numberOfBricks) {
         this.numberOfBricks = numberOfBricks;
     }
@@ -21,7 +23,7 @@ public class BrickOrder {
     }
 
     public int getNumBricks() {
-        return numberOfBricks;
+        return this.numberOfBricks;
     }
 
     public void setNumBricks(int numberOfBricks) {
