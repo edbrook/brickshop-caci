@@ -23,12 +23,7 @@ public class BrickOrderService {
     }
 
     public BrickOrder getOrder(Long id) {
-        checkIsValidOrderIdRange(id);
-        Optional<BrickOrder> existingOrder = repository.findById(id);
-        if (!existingOrder.isPresent()) {
-            throw new BrickOrderNotFoundException();
-        }
-        return existingOrder.get();
+        return getExistingOrderById(id);
     }
 
     public List<BrickOrder> getOrders() {
@@ -36,9 +31,9 @@ public class BrickOrderService {
     }
 
     public BrickOrder updateOrder(Long id, BrickOrder brickOrder) {
-        checkIsValidOrderIdRange(id);
         checkIsValidOrder(brickOrder);
-        repository.deleteById(id);
+        BrickOrder existingOrder = getExistingOrderById(id);
+        repository.deleteById(existingOrder.getId());
         return repository.save(new BrickOrder(brickOrder.getNumBricks()));
     }
 
@@ -52,5 +47,14 @@ public class BrickOrderService {
         if (brickOrder.getNumBricks() <= 0) {
             throw new InvalidBrickOrderException();
         }
+    }
+
+    private BrickOrder getExistingOrderById(Long id) {
+        checkIsValidOrderIdRange(id);
+        Optional<BrickOrder> existingOrder = repository.findById(id);
+        if (!existingOrder.isPresent()) {
+            throw new BrickOrderNotFoundException();
+        }
+        return existingOrder.get();
     }
 }

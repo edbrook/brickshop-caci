@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import uk.co.dekoorb.caci.brickshop.dao.BrickOrder;
+import uk.co.dekoorb.caci.brickshop.exception.BrickOrderNotFoundException;
 import uk.co.dekoorb.caci.brickshop.exception.InvalidBrickOrderException;
 import uk.co.dekoorb.caci.brickshop.exception.InvalidBrickOrderIdException;
 
@@ -145,6 +146,12 @@ public class BrickOrderServiceTest {
         BrickOrder order = createBrickOrder(initialBrickCount);
         order.setNumBricks(0);
         service.updateOrder(order.getId(), order);
+    }
+
+    @Test(expected = BrickOrderNotFoundException.class)
+    public void cannotUpdateNonexistentOrder() {
+        BrickOrder order = new BrickOrder(100);
+        service.updateOrder(Long.MAX_VALUE, order);
     }
 
     /*
