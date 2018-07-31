@@ -6,6 +6,8 @@ import uk.co.dekoorb.caci.brickshop.dao.BrickOrder;
 import uk.co.dekoorb.caci.brickshop.dao.BrickOrderRepository;
 import uk.co.dekoorb.caci.brickshop.exception.InvalidBrickOrderException;
 
+import java.util.List;
+
 @Service
 public class BrickOrderService {
 
@@ -17,5 +19,13 @@ public class BrickOrderService {
             throw new InvalidBrickOrderException();
         }
         return repository.save(brickOrder);
+    }
+
+    public BrickOrder getOrder(Long id) {
+        return null;
+    }
+
+    public List<BrickOrder> getOrders() {
+        return null;
     }
 }
