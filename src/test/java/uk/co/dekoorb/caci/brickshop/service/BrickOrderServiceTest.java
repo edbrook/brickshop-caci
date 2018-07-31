@@ -105,6 +105,11 @@ public class BrickOrderServiceTest {
     /*
      * Stage 2 - Story 1 tests
      */
+    // NOTE: Story does not say what happens with the old order id just
+    //       that a new order id is returned.
+    //       For the purposes of this task it gets deleted/replaced.
+    //       (I've assumed that the order id is the same as the primary key for
+    //       the entity)
     @Test
     public void canUpdateExistingOrder() {
         int initialBrickCount = 100;
