@@ -28,9 +28,20 @@ public class BrickOrderServiceTest {
     @Test
     public void canCreateValidOrder() {
         int numberOfBricks = Integer.MAX_VALUE;
-        BrickOrder order = service.createOrder(new BrickOrder(numberOfBricks));
+        BrickOrder order = createBrickOrder(numberOfBricks);
         assertNotNull(order.getId());
         assertEquals(numberOfBricks, order.getNumBricks());
+    }
+
+    @Test
+    public void shouldIgnoreIdWhenCreatingOrder() {
+        int numberOfBricks = Integer.MAX_VALUE;
+        int newBrickCount = 100;
+        BrickOrder order = createBrickOrder(numberOfBricks);
+        order.setNumBricks(newBrickCount);
+        BrickOrder newOrder = service.createOrder(order);
+        assertNotNull(newOrder);
+        assertNotEquals(order.getId(), newOrder.getId());
     }
 
     @Test

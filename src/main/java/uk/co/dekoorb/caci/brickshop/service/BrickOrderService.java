@@ -19,7 +19,7 @@ public class BrickOrderService {
 
     public BrickOrder createOrder(BrickOrder brickOrder) {
         checkIsValidOrder(brickOrder);
-        return repository.save(brickOrder);
+        return repository.save(new BrickOrder(brickOrder.getNumBricks()));
     }
 
     public BrickOrder getOrder(Long id) {
